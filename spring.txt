@@ -151,3 +151,29 @@ th:href="@{/ex1(id=${dto.id})} : http://localhost:8080/ 다음 부터 경로 설
 
    @SequenceGenerator(name = "student_seq_gen", sequenceName = "student_seq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq_gen")
+
+---------------------------------------------------------------------------------
+날짜 어노테이션으로
+
+org.hibernate 제공
+@CreationTimestamp : 데이터 삽입 시 자동으로 현재 시스템 날짜 시간 삽입
+@UPdateTimestamp : 데이터 삽입 + 수정 시 자동으로 현재 시스템 날짜 시간 삽입 
+
+
+org.springframework.data 제공
+@CreateDate
+@LastModifiedDate
+
++ 설정작업 필요
+main 이 있는 클래스에 @EnableJpaAuditing 부착
+Entity 클래스에 @EntityListeners(value = AuditingEntityListener.class) 부착
+
+---------------------------------------------------------------------------------
+
+Repository + Entity
+
+Repository 제공 메서드
+1) save() : insert, update
+2) findById() : select(where)
+3) findAll() : 전체조회
+4) deleteByID() / delete() : 삭제
