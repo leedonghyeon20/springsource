@@ -1,0 +1,25 @@
+package com.example.jpa.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Table(name = "studenttbl")
+@Entity // == db table
+public class Student {
+
+    @Id
+    @SequenceGenerator(name = "student_seq_gen", sequenceName = "student_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq_gen")
+    // @GeneratedValue // create sequence studenttbl_seq start with 1 increment by
+    // 50
+    // @GeneratedValue(strategy = GenerationType.Auto)
+    private Long id; // id number(19,0) not null primary key (id)
+
+    @Column(name = "sname")
+    private String name; // name varchar2(255 char)
+}
