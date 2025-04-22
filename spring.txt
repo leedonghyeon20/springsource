@@ -185,3 +185,10 @@ Repository 제공 메서드
 2) findById() : select(where)
 3) findAll() : 전체조회
 4) deleteByID() / delete() : 삭제
+
+
+
+- modelmapper : dto ==> entity, entity ==> dto 자동으로 처리
+  1. RootConfig.java 작성
+  
+
