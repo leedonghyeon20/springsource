@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "mart"
+		},
+		{
+			"name": "demo2",
+			"path": "demo2"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.debug.settings.onBuildFailureProceed": true
+	}
+}
