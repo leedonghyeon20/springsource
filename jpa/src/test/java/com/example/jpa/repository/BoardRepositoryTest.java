@@ -15,6 +15,26 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Test
+    public void queryMethodTest() {
+
+        // System.out.println(boardRepository.findByWriter("홍길동4"));
+        // System.out.println(boardRepository.findByTitle("board Title1"));
+        // System.out.println(boardRepository.findByWriterStartingWith("홍")); //
+        // user%
+        // System.out.println(boardRepository.findByWriterEndingWith("user")); // %user
+        System.out.println(boardRepository.findByWriterContaining("길동")); // %user%
+
+        // System.out.println(boardRepository.findByWriterContainingOrCondentContainingBoards("4",
+        // "3")); // %user%
+        // System.out.println(boardRepository.findByWriterContainingAndCondentContainingBoards("2",
+        // "2")); // %user%
+        // System.out.println(boardRepository.findByBnoGreaterThan(3L));
+        // System.out.println(boardRepository.findByBnoGreaterThanOrderByBnoDesc(0L));
+        // System.out.println(boardRepository.findByBnoBetween(4L, 10L));
+
+    }
+
     // CRUD
 
     @Test
