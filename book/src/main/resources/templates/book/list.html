@@ -6,6 +6,35 @@
   </th:block>
   <div layout:fragment="content">
     <!-- 본문내용 -->
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">코드</th>
+          <th scope="col">타이틀</th>
+          <th scope="col">저자</th>
+          <th scope="col">날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="book : ${books}">
+          <th scope="row" th:text="${book.code}"></th>
+          <td><a th:href="@{/book/read(code=${book.code})}" th:text="${book.title}"></a></td>
+          <td th:text="${book.author}"></td>
+          <td th:text="${#temporals.format(book.createdDate, 'yyyy-MM-dd')}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    </table>
   </div>
-  <th:block layout:fragment="script"></th:block>
+  <th:block layout:fragment="script">
+    <!-- 개별 페이지 script 작성 -->
+    <script>
+      const code = "[[${code}]]";
+      if (code) alert("입력 성공");
+    </script>
+
+  </th:block>
 </html>
