@@ -7,8 +7,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import groovy.transform.ToString;
-import groovy.transform.builder.Builder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -17,10 +15,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @EntityListeners(value = AuditingEntityListener.class)
 
@@ -30,6 +31,7 @@ import lombok.Setter;
 @ToString
 @NoArgsConstructor
 @Builder
+@Table(name = "JPA_ITEM")
 
 @Entity
 public class Item {
@@ -62,5 +64,10 @@ public class Item {
     public enum ItemStatus {
         SELL, SOLD_OUT
     }
+
+    // public static Object builder() {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method 'builder'");
+    // }
 
 }
