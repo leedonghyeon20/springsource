@@ -76,7 +76,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
         List<Object[]> list = result.stream().map(t -> t.toArray()).collect(Collectors.toList());
 
-        return new PageImpl(list, pageable, count);
+        return new PageImpl<>(list, pageable, count);
     }
 
     @Override
