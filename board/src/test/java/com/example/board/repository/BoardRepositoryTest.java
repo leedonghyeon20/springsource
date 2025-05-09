@@ -32,6 +32,14 @@ public class BoardRepositoryTest {
     private ReplyRepository replyRepository;
 
     @Test
+    public void listReplyTest() {
+        Board board = Board.builder().bno(100L).build();
+        List<Reply> list = replyRepository.findByBoardOrderByRno(board);
+
+        System.out.println(list);
+    }
+
+    @Test
     public void insertMemberTest() {
 
         IntStream.rangeClosed(1, 10).forEach(i -> {
@@ -46,12 +54,15 @@ public class BoardRepositoryTest {
 
     @Test
     public void insertBoardTest() {
+
         IntStream.rangeClosed(1, 100).forEach(i -> {
-            int ran = (int) (Math.random() * 10) + 1;
-            Member member = memberRepository.findById("user" + ran + "@gmail.com").get();
+
+            int no = (int) (Math.random() * 10) + 1;
+            Member member = Member.builder().email("user" + no + "@gmail.com").build();
+
             Board board = Board.builder()
-                    .title("title" + i)
-                    .content("content" + i)
+                    .title("Board Title" + i)
+                    .content("Board Content" + i)
                     .member(member)
                     .build();
 
@@ -61,17 +72,17 @@ public class BoardRepositoryTest {
 
     @Test
     public void insertReplyTest() {
-        IntStream.rangeClosed(1, 100).forEach(i -> {
-            long ran = (int) (Math.random() * 100) + 1;
 
-            Board board = boardRepository.findById(ran).get();
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+
+            long no = (int) (Math.random() * 100) + 1;
+            Board board = Board.builder().bno(no).build();
 
             Reply reply = Reply.builder()
                     .text("Reply...." + i)
                     .replyer("guest" + i)
                     .board(board)
                     .build();
-
             replyRepository.save(reply);
         });
     }
@@ -92,7 +103,7 @@ public class BoardRepositoryTest {
     @Transactional
     @Test
     public void readBoardTest3() {
-        Board board = boardRepository.findById(2L).get();
+        Board board = boardRepository.findById(5L).get();
         System.out.println(board.getMember());
         System.out.println(board.getReplies());
     }
@@ -100,7 +111,7 @@ public class BoardRepositoryTest {
     @Transactional
     @Test
     public void readReplyTest() {
-        Reply reply = replyRepository.findById(74L).get();
+        Reply reply = replyRepository.findById(2L).get();
         System.out.println(reply);
         System.out.println(reply.getBoard());
     }
@@ -115,30 +126,18 @@ public class BoardRepositoryTest {
                 .type("tc")
                 .keyword("title")
                 .build();
-
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage(), pageRequestDTO.getSize(),
                 Sort.by("bno").descending());
-
         Page<Object[]> result = boardRepository.list(pageRequestDTO.getType(), pageRequestDTO.getKeyword(), pageable);
 
         for (Object[] objects : result) {
             System.out.println(Arrays.toString(objects));
         }
-
-        // for (Object[] objects : result) {
-        // Board board = (Board) objects[0];
-        // Member member = (Member) objects[1];
-        // Long replyCount = (Long) objects[2];
-        // System.out.println(board);
-        // System.out.println(member);
-        // System.out.println(replyCount);
-        // }
     }
 
     @Test
     public void rowTest() {
-        Object[] result = boardRepository.getBoardBybno(4L);
+        Object[] result = boardRepository.getBoardByBno(5L);
         System.out.println(Arrays.toString(result));
     }
-
 }

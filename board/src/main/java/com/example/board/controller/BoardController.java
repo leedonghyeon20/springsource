@@ -5,30 +5,32 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.board.dto.BoardDTO;
 import com.example.board.dto.PageRequestDTO;
 import com.example.board.dto.PageResultDTO;
-import com.example.board.repository.BoardRepository;
 import com.example.board.service.BoardService;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Log4j2
+@RequestMapping("/board")
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@Log4j2
 public class BoardController {
-    private final BoardRepository boardRepository;
+
+    private final BoardService boardService;
 
     @GetMapping("/create")
     public void getCreate(@ModelAttribute("dto") BoardDTO dto, PageRequestDTO pageRequestDTO) {
@@ -56,11 +58,9 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    private final BoardService boardService;
-
     @GetMapping("/list")
     public void getList(Model model, PageRequestDTO pageRequestDTO) {
-        log.info("List 요청", pageRequestDTO);
+        log.info("List 요청 {}", pageRequestDTO);
 
         PageResultDTO<BoardDTO> result = boardService.getList(pageRequestDTO);
         model.addAttribute("result", result);
@@ -75,7 +75,7 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String postMethodName(BoardDTO dto, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
+    public String postModify(BoardDTO dto, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("수정 {} {}", dto, pageRequestDTO);
 
         Long bno = boardService.update(dto);
@@ -85,7 +85,6 @@ public class BoardController {
         rttr.addAttribute("size", pageRequestDTO.getSize());
         rttr.addAttribute("type", pageRequestDTO.getType());
         rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
-
         return "redirect:/board/read";
     }
 
@@ -100,9 +99,7 @@ public class BoardController {
         rttr.addAttribute("size", pageRequestDTO.getSize());
         rttr.addAttribute("type", pageRequestDTO.getType());
         rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
-
         return "redirect:/board/list";
-
     }
 
 }

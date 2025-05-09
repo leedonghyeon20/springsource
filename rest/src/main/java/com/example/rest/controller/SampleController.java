@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class SampleController {
@@ -28,7 +27,7 @@ public class SampleController {
     @GetMapping("/sample")
     public SampleDTO getSample1() {
         SampleDTO dto = new SampleDTO();
-        dto.setName("hong1");
+        dto.setName("hong");
         dto.setMno(1L);
         dto.setAge(25);
 
@@ -44,7 +43,7 @@ public class SampleController {
             SampleDTO dto = new SampleDTO();
             dto.setName("hong" + i);
             dto.setMno(i);
-            dto.setAge(25 + (int) i);
+            dto.setAge(25);
 
             list.add(dto);
         });
@@ -55,21 +54,20 @@ public class SampleController {
     @GetMapping("/sample3")
     public ResponseEntity<SampleDTO> check(double weight) {
         SampleDTO dto = new SampleDTO();
-        dto.setName("hong1");
+        dto.setName("hong");
         dto.setMno(1L);
         dto.setAge(25);
 
         if (weight < 200) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<SampleDTO>(dto, HttpStatus.OK);
     }
 
-    // http://localhost:8080/sample4/shirt/1234
+    // http://localhost:8080/sample4/shirt/1234?weight=123
 
     @GetMapping("/sample4/{cat}/{pid}")
-    public ResponseEntity<String[]> check2(@PathVariable String cat, @PathVariable String pid) {
+    public ResponseEntity<String[]> check2(@PathVariable String cat, @PathVariable String pid, Long weight) {
         String arr[] = {
                 "category : " + cat, "productId : " + pid
         };

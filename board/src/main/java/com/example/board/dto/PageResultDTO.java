@@ -13,7 +13,7 @@ public class PageResultDTO<E> {
     private List<E> dtoList;
 
     // 페이지번호 목록
-    // 전체갯수 / 페이지당 보여줄 개수 = 몇 개의 페이지가 필요한가?
+    // 전체개수 / 페이지당 보여줄개수 = 몇개의 페이지가 필요한가?
     private List<Integer> pageNumList;
 
     private PageRequestDTO pageRequestDTO;
@@ -32,13 +32,15 @@ public class PageResultDTO<E> {
         // 화면에 페이지 나누기 보여주기 위해 계산
         int end = (int) (Math.ceil(pageRequestDTO.getPage() / 10.0)) * 10;
         int start = end - 9;
-
         int last = (int) (Math.ceil(totalCount / (double) pageRequestDTO.getSize()));
         end = end > last ? last : end;
+
         this.prev = start > 1;
         this.next = totalCount > end * pageRequestDTO.getSize();
 
-        this.pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+        this.pageNumList = IntStream.rangeClosed(start, end)
+                .boxed()
+                .collect(Collectors.toList());
 
         if (prev) {
             this.prevPage = start - 1;
@@ -50,7 +52,5 @@ public class PageResultDTO<E> {
         totalPage = this.pageNumList.size();
         // 사용자가 요청한 페이지
         this.current = pageRequestDTO.getPage();
-
     }
-
 }

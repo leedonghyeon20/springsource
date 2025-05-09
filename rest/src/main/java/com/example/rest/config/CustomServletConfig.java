@@ -15,4 +15,5 @@ public class CustomServletConfig implements WebMvcConfigurer {
                 .maxAge(300)
                 .allowedHeaders("Authorization", "Cache-Control", "Content-Type");
     }
+
 }

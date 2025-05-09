@@ -17,26 +17,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-// @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = { "member", "replies" })
 @Table(name = "BOARDTBL")
-
 @Entity
 public class Board extends BaseEntity {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long bno;
-
-    // @Column(nullable = false)
-    // private String writer;
 
     @Column(nullable = false)
     private String title;

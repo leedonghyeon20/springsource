@@ -9,15 +9,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Builder
 @Setter
 @Getter
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemoDTO {
     private Long mno;
     private String memoText;
+
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 

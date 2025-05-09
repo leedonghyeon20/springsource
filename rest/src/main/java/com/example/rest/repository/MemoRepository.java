@@ -1,10 +1,9 @@
 package com.example.rest.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.rest.entity.Memo;
+import java.util.List;
 
 public interface MemoRepository extends JpaRepository<Memo, Long> {
 
