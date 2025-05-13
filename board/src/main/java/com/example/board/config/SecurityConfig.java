@@ -37,7 +37,11 @@ public class SecurityConfig {
                 // .formLogin(Customizer.withDefaults()); // 시큐리티가 제공하는 기본 폼 페이지
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
+                        .requestMatchers("/assets/**", "/css/**", "/js/**", "/img/**")
+                        .permitAll()
+                        .requestMatchers("/board/read").permitAll()
+                        // .requestMatchers("/board/modify").authenticated()
+                        .requestMatchers("/board/modify").hasAnyRole("ADMIN", "MANAGER", "USER")
                         .anyRequest().permitAll())
 
                 .formLogin(login -> login.loginPage("/member/login")
