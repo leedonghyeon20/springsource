@@ -1,6 +1,7 @@
 package com.example.movie.repository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -110,5 +111,33 @@ public class MovieRepositoryTest {
         for (Object[] objects : result) {
             System.out.println(Arrays.toString(objects));
         }
+    }
+
+    @Test
+    public void getMovieTest() {
+        List<Object[]> result = movieImageRepository.getMovieRow(4L);
+
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+        }
+
+        // [Movie(mno=95, title=Movie 95), MovieImage(inum=272,
+        // uuid=462b7b85-e96e-46bc-9a24-73387d6ba957, imgName=test0.jpg, path=null,
+        // ord=0), 1, 2.0]
+
+        // Movie movie = (Movie) result.get(0)[0];
+        // MovieImage movieImage = (MovieImage) result.get(0)[1];
+        // Long cnt = (Long) result.get(0)[2];
+        // Double avg = (Double) result.get(0)[3];
+
+        // Movie movie = (Movie) result.get(1)[0];
+        // MovieImage movieImage = (MovieImage) result.get(1)[1];
+        // Long cnt = (Long) result.get(1)[2];
+        // Double avg = (Double) result.get(1)[3];
+
+        // Movie movie = (Movie) result.get(2)[0];
+        // MovieImage movieImage = (MovieImage) result.get(2)[1];
+        // Long cnt = (Long) result.get(2)[2];
+        // Double avg = (Double) result.get(2)[3];
     }
 }
