@@ -95,13 +95,18 @@ public class UploadController {
     }
 
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    public ResponseEntity<byte[]> getFile(String fileName, String size) {
         ResponseEntity<byte[]> result = null;
 
         String srcFileName;
         try {
             srcFileName = URLDecoder.decode(fileName, "utf-8");
             File file = new File(uploadPath + File.separator + srcFileName);
+
+            if (size != null && size.equals("1")) {
+                // s_제거
+                file = new File(file.getParent(), file.getName().substring(2));
+            }
 
             HttpHeaders headers = new HttpHeaders();
             // Content-Type : 브라우저에게 보내는 파일 타입이 무엇인지 제공할 때 사용
@@ -115,6 +120,31 @@ public class UploadController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
+    }
+
+    @PostMapping("/removeFile")
+    public ResponseEntity<String> postMethodName(String fileName) {
+        log.info("파일 삭제 요청 {} ", fileName);
+
+        // 2025/05/16/~~~~~
+        String oriFileName;
+        try {
+            oriFileName = URLDecoder.decode(fileName, "utf-8");
+            // 원본 파일 삭제
+            File file = new File(uploadPath + File.separator + oriFileName);
+            file.delete();
+
+            // 썸네일
+            File thumbnail = new File(file.getParent(), "s_" + file.getName());
+            thumbnail.delete();
+
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     // 폴더 생성

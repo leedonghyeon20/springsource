@@ -61,40 +61,68 @@
             </div>
           </form>
         </div>
-          <!-- 포스터 보여주기 -->
-          <div class="uploadResult mb-4">
-            <ul>
-              <li>
-                <img src="" alt="" />
-              </li>
-            </ul>
-          </div>
+        <!-- 포스터 보여주기 -->
+        <div class="uploadResult mb-4">
+          <ul>
+            <li th:each="image : ${dto.movieImages}">
+              <img
+                    class="block"
+                    th:if="${image.path!=null}"
+                    th:src="|/upload/display?fileName=${image.getThumbnailURL()}|"
+                    th:attr="data-file=${image.getThumbnailURL()}" data-bs-toggle="modal" data-bs-target="#imgModal"
+                  />
+            </li>
+          </ul>
+        </div>
           <!-- 리뷰영역 -->
-          <div>
-            <div class="clex items-center">
-              <span>리뷰작성 [ <span class="review-cnt"> ]</span>
-            </div>
-          </div>
-
-          <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">작성자</span>
-            <input
-              name = "nickname"
-              class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            />
-            </label>
-            <label class="block mt-4 text-sm">
-              <span class="text-gray-700 dark:text-gray-400">감상평</span>
-              <textarea
-                name="text"
-                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                rows="3"
-                placeholder="감상평을 등록해주세요"
-              ></textarea>
-            </label>
+        <div>
+          <div class="clex items-center">
+            <span>리뷰작성 [ <span class="review-cnt"> ]</span>
           </div>
         </div>
+
+        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <label class="block text-sm">
+            <span class="text-gray-700 dark:text-gray-400">작성자</span>
+          <input
+            name = "nickname"
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+          />
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">감상평</span>
+            <textarea
+              name="text"
+              class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+              rows="3"
+              placeholder="감상평을 등록해주세요"
+            ></textarea>
+          </label>
+        </div>   
+        
       </div>
-  </div>
+      <!-- Modal -->
+        <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">영화명</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img src="" alt="">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  <th:block layout:fragment="script">
+    <script>
+      const title = "[[${dto.title}]]"
+    </script>
+    <script th:src="@{/js/read.js}"></script>
+  </th:block>
 </html>
