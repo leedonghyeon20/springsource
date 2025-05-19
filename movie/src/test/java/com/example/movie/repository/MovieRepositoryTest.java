@@ -20,6 +20,8 @@ import com.example.movie.entity.Movie;
 import com.example.movie.entity.MovieImage;
 import com.example.movie.entity.Review;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
 public class MovieRepositoryTest {
 
@@ -35,6 +37,32 @@ public class MovieRepositoryTest {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    // 리뷰 조회
+    @Test
+    public void testFindbyMovie() {
+        System.out.println(reviewRepository.findByMovie(Movie
+                .builder()
+                .mno(2L)
+                .build()));
+
+    }
+
+    // @Transactional
+    @Test
+    public void testFindbyMovie2() {
+        List<Review> list = reviewRepository.findByMovie(Movie
+                .builder()
+                .mno(2L)
+                .build());
+
+        for (Review review : list) {
+            System.out.println(review);
+            // 리뷰 작성자 조회
+            System.out.println(review.getMember().getEmail());
+        }
+
+    }
 
     // 영화 삽입
     @Test
