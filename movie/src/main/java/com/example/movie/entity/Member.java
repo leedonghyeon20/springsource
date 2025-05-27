@@ -35,4 +35,15 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
+    public void addMemberRole(MemberRole memberRole) {
+        memberRole = this.memberRole;
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }

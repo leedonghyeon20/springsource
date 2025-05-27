@@ -38,10 +38,10 @@ const reviewList = () => {
       result += `<div class="d-flex flex-column align-self-center">`;
 
       // 로그인 사용자 == 댓글 작성자
-      // if (reply.replyerEmail == loginUser) {
-      result += `<div class="mb-2"><button class="btn btn-outline-danger btn-sm">삭제</button></div>`;
-      result += `<div><button class="btn btn-outline-success btn-sm">수정</button></div>`;
-      // }
+      if (review.email == loginUser) {
+        result += `<div class="mb-2"><button class="btn btn-outline-danger btn-sm">삭제</button></div>`;
+        result += `<div><button class="btn btn-outline-success btn-sm">수정</button></div>`;
+      }
       result += `</div></div>`;
     });
     reviewDiv.innerHTML = result;
