@@ -38,6 +38,15 @@ public class NovelService {
 
     }
 
+    public Long pubUpdate(NovelDTO novelDTO) {
+        // publishedDate 변경
+        Novel novel = novelRepository.findById(novelDTO.getId()).get();
+        // available 변경
+        novel.changePublishedDate(novelDTO.getPublishedDate());
+        return novelRepository.save(novel).getId();
+
+    }
+
     @Transactional
     public void novelRemove(Long id) {
         // 자식에 해당하는 grade 삭제
